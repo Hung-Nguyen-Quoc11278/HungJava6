@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/user/layout :: areas(~{::title},~{::body})}">
+<head>
+<title>Daily Shop | Register</title>
+
+
+</head>
+<body>
+
+	<!-- catg header banner section -->
+	<section id="aa-catg-head-banner">
+		<img src="../styleUser/img/fashion/gucci.jpg" alt="fashion img">
+		<div class="aa-catg-head-banner-area">
+			<div class="container">
+				<div class="aa-catg-head-banner-content">
+					<h2>Register Page</h2>
+					<ol class="breadcrumb">
+						<li><a th:href="@{/user/index}">Home</a></li>
+						<li class="active">Register</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- / catg header banner section -->
+
+	<!-- Cart view section -->
+	<section id="aa-myaccount">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="aa-myaccount-area">
+						<div class="row">
+							<div class="col-md-6">
+								<iframe width="560" height="315"
+									src="https://www.youtube.com/embed/8ghB_Sx-MSo"
+									title="YouTube video player" frameborder="0"
+									allow="accelerometer; autoplay=1; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+									allowfullscreen></iframe>
+							</div>
+							<div class="col-md-6">
+								<div class="aa-myaccount-login">
+									<h4>REGISTER</h4>
+									<form action="" class="aa-login-form">
+										<label for="">Username or Email address<span>*</span></label>
+										<input type="text" placeholder="Username or email"> <label
+											for="">Password<span>*</span></label> <input type="password"
+											placeholder="Password">
+										<button type="submit" class="aa-browse-btn">Register</button>							
+										<p class="aa-lost-password">
+											<a href="#">Or Login ?</a>
+										</p>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- / Cart view section -->
+
+
+</body>
+</html>

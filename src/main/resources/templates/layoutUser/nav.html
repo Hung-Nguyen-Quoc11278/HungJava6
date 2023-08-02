@@ -46,11 +46,16 @@
 							<!-- / header top left -->
 							<div class="aa-header-top-right">
 								<ul class="aa-head-top-nav-right">
-									<li><a href="account.html">My Account</a></li>
-									<li><a th:href="@{/security/login/form}" >Login</a></li>
-									<li><a href="account.html">Register</a></li>								
-									<li><a href="#"><strong>Administrator</strong></a></li>
-									<li><a th:href="@{/security/logoff}" style="color: red">Logout</a></li>
+									<th:block th:if="${#request.remoteUser}">
+										<li th:if="${#request.remoteUser}"><a href="account.html">Wellcome [[${#request.remoteUser}]]</a></li>									
+										<li><a href="#"><strong>Administrator</strong></a></li>
+										<li><a th:href="@{/security/logoff}" style="color: red">Logout</a></li>
+									</th:block>
+									<th:block th:unless="${#request.remoteUser}">
+										<li><a href="account.html">Register</a></li>
+										<li><a th:href="@{/security/login/form}">Login</a></li>
+									</th:block>
+
 								</ul>
 							</div>
 						</div>
@@ -69,7 +74,8 @@
 							<!-- logo  -->
 							<div class="aa-logo">
 								<!-- Text based logo -->
-								<a th:href="@{/user/index}"> <span class="fa fa-shopping-cart"></span>
+								<a th:href="@{/user/index}"> <span
+									class="fa fa-shopping-cart"></span>
 									<p>
 										daily<strong>Shop</strong> <span>Your Shopping Partner</span>
 									</p>
@@ -116,7 +122,7 @@
 							<!-- search box -->
 							<div class="aa-search-box">
 								<form action="">
-									<input type="text" name="keywords" 
+									<input type="text" name="keywords"
 										placeholder="Search here ex. 'man' ">
 									<button type="submit">
 										<span class="fa fa-search"></span>
@@ -172,7 +178,7 @@
 									<li><a href="blog-archive.html">Blog Style 1</a></li>
 									<li><a href="blog-archive-2.html">Blog Style 2</a></li>
 									<li><a href="blog-single.html">Blog Single</a></li>
-								</ul></li>						
+								</ul></li>
 							<li><a href="">Pages <span class="caret"></span></a>
 								<ul class="dropdown-menu">
 									<li><a th:href="@{/user/cart}">Cart</a></li>

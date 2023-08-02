@@ -9,7 +9,7 @@
 
 	<!-- catg header banner section -->
 	<section id="aa-catg-head-banner">
-		<img src="../styleUser/img/fashion/gucci.jpg" alt="fashion img">
+		<img src="/styleUser/img/fashion/gucci.jpg" alt="fashion img">
 		<div class="aa-catg-head-banner-area">
 			<div class="container">
 				<div class="aa-catg-head-banner-content">
@@ -41,7 +41,7 @@
 							<div class="col-md-6">
 								<div class="aa-myaccount-login">
 									<h4>LOGIN</h4>
-									<h3 th:text="${message}"></h3>
+									<h3 style="color: red;" th:text="${message}"></h3>
 									<form th:action="@{/security/login}" method="post"
 										class="aa-login-form">
 										<label for="username">Username or Email address<span>*</span></label>

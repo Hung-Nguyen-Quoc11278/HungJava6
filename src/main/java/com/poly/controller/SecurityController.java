@@ -58,5 +58,7 @@ public class SecurityController {
 			oauth2Service.loginFormOAuth2(oauth2);
 			return "forward:/security/login/success";
 		}
+		
+		
 
 }

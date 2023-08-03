@@ -1,10 +1,19 @@
 package com.poly.controller;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.poly.services.OrderService;
 
 @Controller
 public class OrderController {
+	
+	@Autowired
+	OrderService orderService;
 	
 	@RequestMapping("/order/checkout")
 	public String checkout() {
@@ -12,16 +21,17 @@ public class OrderController {
 		return "user/cart/checkout";
 	}
 	
-	@RequestMapping("/order/list")
-	public String list() {
-		
-		return "user/product";
-	}
+//	@RequestMapping("/order/list")
+//	public String list(Model model, HttpServletRequest req) {
+//		String username = req.getRemoteUser();
+//		 model.addAttribute("orders", orderService.findByUsername(username));
+//		return "user/cart/orderdetail";
+//	}
 	
 	@RequestMapping("/order/detail/{id}")
-	public String detail() {
-		
-		return "user/product";
+	public String detail(@PathVariable("id") Long id, Model model) {
+		 model.addAttribute("order" , orderService.findById(id));
+		 return "user/cart/orderdetail";
 	}
 
 }

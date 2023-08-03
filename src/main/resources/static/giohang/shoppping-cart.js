@@ -8,14 +8,15 @@ app.controller("ctrl",function($scope,$http){
 		add(id){
 		var item = this.items.find(item => item.id == id) // kiểm tra trong giỏi hàng dựa vào id
 		if(item){
-			alert("\n THÊM GIỎ HÀNG THÀNH CÔNG");
+			alert("Them Thanh Cong");
 			item.qty++;
-			this.saveToLocalStorage();		
+			this.saveToLocalStorage();
 		}else{
 			$http.get(`/rest/product/${id}`).then(resp =>{
 				resp.data.qty = 1;
 				this.items.push(resp.data);
-				this.saveToLocalStorage(); 					
+				this.saveToLocalStorage(); 	
+					
 			})
 		}
 		},
@@ -56,25 +57,22 @@ app.controller("ctrl",function($scope,$http){
 				var json = localStorage.getItem("cart"); // doc cart tu local
 				this.items = json ? JSON.parse(json) : []; // neu co chuyen sang json gan vao item ko thi rong
 				
-		},
-		
+			}
 	}
-	
-	
-	
 	$scope.cart.loadFromLocalStorage();
 	
-	$scope.order={
+	$scope.order={ 
 		createDate: new Date(),
 		address:"",
-		account:{username:$("#username").text()},
-		get orderDetail(){
+		account:{username:$("#Username").text()},
+		get orderDetails(){
 			return $scope.cart.items.map(item => {
 				return{
 					product:{id: item.id},
 					price: item.price,
-					quantity:item.qty
-				}
+					quantity:item.qty,
+					image:item.image
+				}	
 			});
 		},
 		purchase(){
@@ -85,7 +83,7 @@ app.controller("ctrl",function($scope,$http){
 				$scope.cart.clear();
 				location.href = "/order/detail/" + resp.data.id;
 			}).catch(error =>{
-				alert("đặt hàng thất bại")
+				alert("đặt hàng thất bại!")
 				console.log(error)
 			})
 		}

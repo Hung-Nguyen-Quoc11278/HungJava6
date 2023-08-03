@@ -2,22 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{/user/layout :: areas(~{::title},~{::body})}">
 <head>
-<title>Daily Shop | Register</title>
-
+<title>Daily Shop | Change Password</title>
 
 </head>
 <body>
 
 	<!-- catg header banner section -->
 	<section id="aa-catg-head-banner">
-		<img src="../styleUser/img/fashion/gucci.jpg" alt="fashion img">
+		<img src="/styleUser/img/fashion/gucci.jpg" alt="fashion img">
 		<div class="aa-catg-head-banner-area">
 			<div class="container">
 				<div class="aa-catg-head-banner-content">
-					<h2>Register Page</h2>
+					<h2>Password Page</h2>
 					<ol class="breadcrumb">
 						<li><a th:href="@{/user/index}">Home</a></li>
-						<li class="active">Register</li>
+						<li class="active">Change Password</li>
 					</ol>
 				</div>
 			</div>
@@ -33,7 +32,7 @@
 					<div class="aa-myaccount-area">
 						<div class="row">
 							<div class="col-md-6">
-								<iframe width="560" height="315"
+								<iframe width="560" height="355"
 									src="https://www.youtube.com/embed/8ghB_Sx-MSo"
 									title="YouTube video player" frameborder="0"
 									allow="accelerometer; autoplay=1; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -41,16 +40,19 @@
 							</div>
 							<div class="col-md-6">
 								<div class="aa-myaccount-login">
-									<h4>REGISTER</h4>
-									<form action="" class="aa-login-form">
-										<label for="">Username or Email address<span>*</span></label>
-										<input type="text" placeholder="Username or email"> <label
-											for="">Password<span>*</span></label> 
-											<input type="password"
-											placeholder="Password">
-											<input type="password"
-											placeholder="Confirm Password">
-										<button type="submit" class="aa-browse-btn">Register</button>							
+									<h4>CHANGE PASSWORD </h4>
+									<h3 style="color: red; background-color: yellow; text-align: center;" th:text="${message}"></h3>
+									<form th:action="@{/security/login}" method="post"
+										class="aa-login-form">
+										<label for="username">Username or Email address<span>*</span></label>
+										<input name="username" type="text"
+											placeholder="Username or email"> <label
+											for="password">Password<span>*</span></label>
+										<input
+											name="password" type="password" placeholder="New Password">
+										<input
+											name="password" type="password" placeholder="Comfirm Password">
+										<button type="submit" class="aa-browse-btn">Change Password</button>
 									</form>
 								</div>
 							</div>

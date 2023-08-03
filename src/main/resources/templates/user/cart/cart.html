@@ -37,61 +37,41 @@
 									<table class="table">
 										<thead>
 											<tr>
-												<th></th>
-												<th></th>
+												<th>Image</th>												
 												<th>Product</th>
 												<th>Price</th>
 												<th>Quantity</th>
 												<th>Total</th>
+												<th>Del</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td><a class="remove" href="#"><fa
-															class="fa fa-close"></fa></a></td>
-												<td><a href="#"><img src="img/man/polo-shirt-1.png"
+											<tr ng-repeat="item in cart.items">											
+												<td><a href="#"><img src="/styleUser/images/{{item.image}}"
 														alt="img"></a></td>
-												<td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-												<td>$250</td>
-												<td><input class="aa-cart-quantity" type="number"
-													value="1"></td>
-												<td>$250</td>
-											</tr>
-											<tr>
-												<td><a class="remove" href="#"><fa
+												<td><a class="aa-cart-title" href="#">{{item.name}}</a></td>
+												<td>$ {{item.price|number:2}}</td>
+												<td><input class="aa-cart-quantity" ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number"
+													min="1"></td>
+												<td>$ {{item.qty*item.price|number:2}}</td>
+												<td><a ng-click="cart.remove(item.id)" class="remove"><fa
 															class="fa fa-close"></fa></a></td>
-												<td><a href="#"><img src="img/man/polo-shirt-2.png"
-														alt="img"></a></td>
-												<td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-												<td>$150</td>
-												<td><input class="aa-cart-quantity" type="number"
-													value="1"></td>
-												<td>$150</td>
-											</tr>
+											</tr>							
 											<tr>
-												<td><a class="remove" href="#"><fa
-															class="fa fa-close"></fa></a></td>
-												<td><a href="#"><img src="img/man/polo-shirt-3.png"
-														alt="img"></a></td>
-												<td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-												<td>$50</td>
-												<td><input class="aa-cart-quantity" type="number"
-													value="1"></td>
-												<td>$50</td>
-											</tr>
-											<tr>
-												<td colspan="6" class="aa-cart-view-bottom">
-													<div class="aa-cart-coupon">
-														<input class="aa-coupon-code" type="text"
-															placeholder="Coupon"> <input
+												<td colspan="6" class="aa-cart-view-bottom">										
+													<div class="aa-cart-coupon">												
+														<input ng-model="item.code" value="0" class="aa-coupon-code" type="text"
+															placeholder="Coupon"> 
+															<input
 															class="aa-cart-view-btn" type="submit"
 															value="Apply Coupon">
-													</div> <input class="aa-cart-view-btn" type="submit"
-													value="Update Cart">
+													</div>
+													 <button ng-click="cart.clear()" class="aa-cart-view-btn">Clear</button>
 												</td>
 											</tr>
 										</tbody>
 									</table>
+									<a th:href="@{/product/list}" class="aa-cart-view-btn" >Return Product</a>
 								</div>
 							</form>
 							<!-- Cart Total view -->
@@ -101,11 +81,11 @@
 									<tbody>
 										<tr>
 											<th>Subtotal</th>
-											<td>$450</td>
+											<td>$ {{cart.amount | number : 2}}</td>
 										</tr>
 										<tr>
 											<th>Total</th>
-											<td>$450</td>
+											<td></td>
 										</tr>
 									</tbody>
 								</table>

@@ -62,19 +62,19 @@
 						<div class="aa-product-catg-body">
 							<ul class="aa-product-catg">
 								<!-- start single product item -->
-								<li th:each="p: ${page.content}">
+								<li th:each="p: ${items}">
 									<figure>
 										<a class="aa-product-img"
-											th:href="@{|/product/detail/${p.id}|}"><img
-											src="/styleUser/images/1001.jpg" alt="polo shirt img"></a>
-										<a class="aa-add-card-btn" href="#"><span
+											th:href="@{|/product/detail/${p.id}|}">
+											<img th:src="@{|/styleUser/images/${p.image}|}" alt="polo shirt img"></a>
+										<a th:attr="ng-click=@{|cart.add(${p.id})|}" class="aa-add-card-btn" style="cursor: pointer;"><span
 											class="fa fa-shopping-cart"></span>Add To Cart</a>
 										<figcaption>
 											<h4 class="aa-product-title">
 												<a href="" th:utext="${p.name}"></a>
 											</h4>
 											<span class="aa-product-price">$[[${p.price}]]</span><span
-												class="aa-product-price"><del>$[[${p.price}+10]]</del></span>
+												class="aa-product-price"><del>$[[${p.price}+10 ]]</del></span>
 											<p class="aa-product-descrip">Lorem ipsum dolor sit amet,
 												consectetur adipisicing elit. Numquam accusamus facere
 												iusto, autem soluta amet sapiente ratione inventore nesciunt
@@ -82,7 +82,7 @@
 										</figcaption>
 									</figure>
 									<div class="aa-product-hvr-content">
-										<a href="#" data-toggle2="tooltip" data-placement="top"
+										<a th:attr="ng-click=@{|cart.add(${p.id})|}" data-toggle2="tooltip" data-placement="top"
 											title="Quick View" data-toggle="modal"
 											data-target="#quick-view-modal"><span
 											class="fa fa-search"></span></a>
@@ -204,11 +204,7 @@
 						<div class="aa-sidebar-widget">
 							<h3>Category</h3>
 							<ul class="aa-catg-nav">
-								<li><a href="#">Men</a></li>
-								<li><a href="">Women</a></li>
-								<li><a href="">Kids</a></li>
-								<li><a href="">Electornics</a></li>
-								<li><a href="">Sports</a></li>
+								<li th:each="c:${cates}"><a th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a></li>
 							</ul>
 						</div>
 						<!-- single sidebar -->

@@ -9,7 +9,7 @@ public class OrderController {
 	@RequestMapping("/order/checkout")
 	public String checkout() {
 		
-		return "user/product";
+		return "user/cart/checkout";
 	}
 	
 	@RequestMapping("/order/list")

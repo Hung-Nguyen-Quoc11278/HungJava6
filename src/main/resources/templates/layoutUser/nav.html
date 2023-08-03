@@ -74,7 +74,7 @@
 							<!-- logo  -->
 							<div class="aa-logo">
 								<!-- Text based logo -->
-								<a th:href="@{/user/index}"> <span
+								<a th:href="@{/home/index}"> <span
 									class="fa fa-shopping-cart"></span>
 									<p>
 										daily<strong>Shop</strong> <span>Your Shopping Partner</span>
@@ -86,33 +86,30 @@
 							<!-- / logo  -->
 							<!-- cart box -->
 							<div class="aa-cartbox">
-								<a class="aa-cart-link" th:href="@{/user/cart}"> <span
+								<a class="aa-cart-link" th:href="@{/home/cart}"> <span
 									class="fa fa-shopping-basket"></span> <span
 									class="aa-cart-title">SHOPPING CART</span> <span
-									class="aa-cart-notify">1</span>
+									class="aa-cart-notify">{{cart.count}}</span>
 								</a>
 								<div class="aa-cartbox-summary">
 									<ul>
-										<li><a class="aa-cartbox-img" href="#"><img
-												src="img/woman-small-2.jpg" alt="img"></a>
-											<div class="aa-cartbox-info">
+										<li ng-repeat="item in cart.items">
+										<a class="aa-cartbox-img" href="#"><img
+										   src="/styleUser/images/{{item.image}}" alt="img">
+										</a>
+										<div class="aa-cartbox-info">
 												<h4>
-													<a href="#">Product Name</a>
+													<a href="#">{{item.name}}</a>
 												</h4>
-												<p>1 x $250</p>
-											</div> <a class="aa-remove-product" href="#"><span
-												class="fa fa-times"></span></a></li>
-										<li><a class="aa-cartbox-img" href="#"><img
-												src="img/woman-small-1.jpg" alt="img"></a>
-											<div class="aa-cartbox-info">
-												<h4>
-													<a href="#">Product Name</a>
-												</h4>
-												<p>1 x $250</p>
-											</div> <a class="aa-remove-product" href="#"><span
-												class="fa fa-times"></span></a></li>
+												<p>{{item.qty}} x $ {{cart.amount | number : 2}}</p>
+										</div>
+										<a class="aa-remove-product" ng-click="cart.remove(item.id)" href="#">
+											<span class="fa fa-times"></span>
+										</a>
+										</li>
+										
 										<li><span class="aa-cartbox-total-title"> Total </span> <span
-											class="aa-cartbox-total-price"> $500 </span></li>
+											class="aa-cartbox-total-price"> $ {{cart.amount | number : 2}} </span></li>
 									</ul>
 									<a class="aa-cartbox-checkout aa-primary-btn"
 										th:href="@{/user/checkout}">Checkout</a>

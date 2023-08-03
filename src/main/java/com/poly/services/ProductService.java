@@ -9,4 +9,6 @@ public interface ProductService {
 
 	Product findById(Integer id);
 
+	List<Product> findByCategoryId(String cid);
+
 }

@@ -49,11 +49,13 @@
 									<th:block th:if="${#request.remoteUser}">
 										<li th:if="${#request.remoteUser}"> <strong><a href="account.html">Wellcome [[${#request.remoteUser}]]</a>	</strong>								
 										</li>									
-										<li><a href="#"><strong>Administrator</strong></a></li>
+										<li><a href="#"><strong>Administrator</strong></a></li>			
+										<li><a th:href="@{/home/changepassword}">Change Password</a></li>						
 										<li><a th:href="@{/security/logoff}" style="color: red">Logout</a></li>
+										
 									</th:block>
 									<th:block th:unless="${#request.remoteUser}">
-										<li><a href="account.html">Register</a></li>
+										<li><a th:href="@{/home/register}">Register</a></li>
 										<li><a th:href="@{/security/login/form}">Login</a></li>
 									</th:block>
 

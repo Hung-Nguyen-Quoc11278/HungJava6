@@ -8,6 +8,7 @@ class Java6AsmApplicationTests {
 
 	@Test
 	void contextLoads() {
+String hung ="Hung da ghe choi";
 	}
 
 }

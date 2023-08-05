@@ -1,16 +1,17 @@
 package com.poly.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.poly.services.OAuth2Service;
 
-//import com.poly.services.OAuth2Service;
 
 @Controller
 public class SecurityController {
@@ -47,6 +48,13 @@ public class SecurityController {
 		model.addAttribute("message", "Bạn Không Có Quyền Truy Cập !");
 		return "user/account/login";
 
+	}
+	
+	@CrossOrigin("*")
+	@ResponseBody
+	@RequestMapping("/rest/security/authentication")
+	public Object getAuthentication(HttpSession session) {
+		return session.getAttribute("authentication");
 	}
 	
 		// OAuth2

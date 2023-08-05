@@ -1,6 +1,11 @@
 package com.poly;
 
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,9 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	
 	@Autowired
 	AccountService accountService;
+	
+	@Autowired
+	HttpSession session;
+
+	// Cung cấp nguồn dữ liệu đăng nhập
 
 	// Quản lý người dữ liệu người sử dụng
 	@Override
@@ -46,9 +55,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				String password = pe.encode(user.getPassword());
 				String[] roles = user.getAuthorities().stream().map(er -> er.getRole().getId())
 						.collect(Collectors.toList()).toArray(new String[0]);
-				return User.withUsername(username)
-						.password(password)
-						.roles(roles).build();
+				/////////////////////
+				Map<String, Object> authentication = new HashMap<>();
+				authentication.put("user", user);
+				byte[] token = (username + ":" + user.getPassword()).getBytes();
+				authentication.put("token", "Basic " + Base64.getEncoder().encodeToString(token));
+				session.setAttribute("authentication", authentication);
+				////////////////
+				return User.withUsername(username).password(password).roles(roles).build();
 			} catch (Exception e) {
 				throw new UsernameNotFoundException(username + "not found !");
 			}
@@ -61,27 +75,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// CSRF,CORS
 		http.csrf().disable().cors().disable();
 		// Phân quyền sử dụng
-		http.authorizeRequests()
-			.antMatchers("/order/**").authenticated()
-			.antMatchers("/admin/**").hasAnyRole("STAF", "DIRE")
-			.antMatchers("/rest/authorities").hasRole("DIRE")
-			.anyRequest().permitAll();
+		http.authorizeRequests().antMatchers("/order/**").authenticated().antMatchers("/admin/**")
+				.hasAnyRole("STAF", "DIRE").antMatchers("/rest/authorities").hasRole("DIRE").anyRequest().permitAll();
 //		http.httpBasic();
 
 		// Điều khiển lỗi truy cập không đúng vai trò
 		http.exceptionHandling().accessDeniedPage("/auth/access/denied"); // [/error]
 
 		// Giao diện đăng nhập
-		http.formLogin().loginPage("/security/login/form")
-				.loginProcessingUrl("/security/login")
-				.defaultSuccessUrl("/security/login/success", false)
-				.failureUrl("/security/login/error");
+		http.formLogin().loginPage("/security/login/form").loginProcessingUrl("/security/login")
+				.defaultSuccessUrl("/security/login/success", false).failureUrl("/security/login/error");
 
-		http.rememberMe()
-			.tokenValiditySeconds(86400);
-		
-		http.exceptionHandling()
-			.accessDeniedPage("/security/unauthoried");
+		http.rememberMe().tokenValiditySeconds(86400);
+
+		http.exceptionHandling().accessDeniedPage("/security/unauthoried");
 
 		// Đăng Xuất
 		http.logout().logoutUrl("/security/logoff").logoutSuccessUrl("/security/logoff/success");
@@ -90,10 +97,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.oauth2Login().defaultSuccessUrl("/oauth2/login/success", true).failureUrl("/security/login/error")
 				.authorizationEndpoint().baseUri("/oauth2/authorization");
 	}
-	
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers(HttpMethod.OPTIONS,"/**");
+		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
 	}
 
 }

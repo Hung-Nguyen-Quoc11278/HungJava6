@@ -7,16 +7,15 @@ app.controller("ctrl",function($scope,$http){
 		// Them vao gio hang
 		add(id){
 		var item = this.items.find(item => item.id == id) // kiểm tra trong giỏi hàng dựa vào id
-		if(item){
-			alert("Them Thanh Cong");
+		alert("\n THÊM GIỎ HÀNG THÀNH CÔNG");
+		if(item){		
 			item.qty++;
 			this.saveToLocalStorage();
 		}else{
 			$http.get(`/rest/product/${id}`).then(resp =>{
 				resp.data.qty = 1;
 				this.items.push(resp.data);
-				this.saveToLocalStorage(); 	
-					
+				this.saveToLocalStorage(); 				
 			})
 		}
 		},
@@ -47,7 +46,7 @@ app.controller("ctrl",function($scope,$http){
 			
 		},
 	    // Lưu giỏ hàng vào local storage
-		saveToLocalStorage(){
+			saveToLocalStorage(){
 			var json = JSON.stringify(angular.copy(this.items));
 			localStorage.setItem("cart",json);
 		},
@@ -59,35 +58,33 @@ app.controller("ctrl",function($scope,$http){
 				
 			}
 	}
+	
 	$scope.cart.loadFromLocalStorage();
 	
 	$scope.order={ 
 		createDate: new Date(),
 		address:"",
-		account:{username:$("#Username").text()},
+		account:{username: $("#username").text()},
 		get orderDetails(){
 			return $scope.cart.items.map(item => {
 				return{
 					product:{id: item.id},
 					price: item.price,
-					quantity:item.qty,
-					image:item.image
+					quantity:item.qty
 				}	
 			});
 		},
 		purchase(){
 			var order = angular.copy(this);
-			// thuc hien dat hang
 			$http.post("/rest/orders",order).then(resp =>{
-				alert("Đặt hàng thành Công");
+				alert("\n ĐẶT HÀNG THÀNH CÔNG");
 				$scope.cart.clear();
 				location.href = "/order/detail/" + resp.data.id;
 			}).catch(error =>{
-				alert("đặt hàng thất bại!")
+				alert("\n ĐẶT HÀNG THẤT BẠI");
 				console.log(error)
 			})
 		}
 	}
-	
 	
 })

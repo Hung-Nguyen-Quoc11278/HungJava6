@@ -1,6 +1,8 @@
 package com.poly.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +18,16 @@ public class OrderController {
 	OrderService orderService;
 	
 	@RequestMapping("/order/checkout")
-	public String checkout() {
-		
+	public String checkout() {		
 		return "user/cart/checkout";
 	}
 	
-//	@RequestMapping("/order/list")
-//	public String list(Model model, HttpServletRequest req) {
-//		String username = req.getRemoteUser();
-//		 model.addAttribute("orders", orderService.findByUsername(username));
-//		return "user/cart/orderdetail";
-//	}
+	@RequestMapping("/order/list")
+	public String list(Model model, HttpServletRequest request) {
+		String username = request.getRemoteUser();
+		 model.addAttribute("orders", orderService.findByUsername(username));
+		return "user/cart/myorder";
+	}
 	
 	@RequestMapping("/order/detail/{id}")
 	public String detail(@PathVariable("id") Long id, Model model) {

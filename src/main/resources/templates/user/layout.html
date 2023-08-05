@@ -10,7 +10,7 @@
 <title th:replace="${title}"></title>
 
 <!-- Css Start-->
-<div th:insert="~{/layoutUser/css::css}"></div>
+<link th:insert="~{/layoutUser/css::css}">
 
 </head>
 <body ng-app="shopping-cart" ng-controller="ctrl">
@@ -40,7 +40,8 @@
 	<!-- / footer -->
 
 	<div th:insert="~{/layoutUser/js::js}"></div>
-	<script src="/giohang/shoppping-cart.js"></script>
+	<script th:src="@{/angular/shoppping-cart.js}"></script>
+	<script th:src="@{/angular/shopping-cart-app.js}"></script>
 
 </body>
 </html>

@@ -13,7 +13,7 @@ public class AccountController {
 	}
 	
 	
-//	Change Pass
+	//	Register
 	@RequestMapping("/home/register")
 	public String register() {
 		return "user/account/register";

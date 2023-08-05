@@ -2,49 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body th:fragment="ADcss">
 
-	<link href="/styleUser/images/icon.png"rel="icon" sizes="32x32">
+	<link th:href="@{/styleUser/images/icon.png}" rel="icon" sizes="32x32">
 	<!-- plugins:css -->
-	<link rel="stylesheet" href="/styleAdmin/vendors/feather/feather.css">
+	<link rel="stylesheet" th:href="@{/styleAdmin/vendors/feather/feather.css}">
 	<link rel="stylesheet"
-		href="/styleAdmin/vendors/ti-icons/css/themify-icons.css">
+		th:href="@{/styleAdmin/vendors/ti-icons/css/themify-icons.css}">
 	<link rel="stylesheet"
-		href="/styleAdmin/vendors/css/vendor.bundle.base.css">
+		th:href="@{/styleAdmin/vendors/css/vendor.bundle.base.css}">
 	<!-- endinject -->
 	<!-- Plugin css for this page -->
 	<link rel="stylesheet"
-		href="/styleAdmin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+		th:href="@{/styleAdmin/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
 	<link rel="stylesheet"
-		href="/styleAdmin/vendors/ti-icons/css/themify-icons.css">
+		th:href="@{/styleAdmin/vendors/ti-icons/css/themify-icons.css}">
 	<link rel="stylesheet" type="text/css"
-		href="/styleAdmin/js/select.dataTables.min.css">
+		th:href="@{/styleAdmin/js/select.dataTables.min.css}">
 	<!-- End plugin css for this page -->
 	<!-- inject:css -->
 	<link rel="stylesheet"
-		href="/styleAdmin/css/vertical-layout-light/style.css">
+		th:href="@{/styleAdmin/css/vertical-layout-light/style.css}">
 	<!-- endinject -->
 
-	<!-- plugins:js -->
-	<script src="/styleAdmin/vendors/js/vendor.bundle.base.js"></script>
+	<!-- plugins:js} -->
+	<script th:src="@{/styleAdmin/vendors/js/vendor.bundle.base.js}"></script>
 	<!-- endinject -->
-	<!-- Plugin js for this page -->
-	<script src="/styleAdmin/vendors/chart.js/Chart.min.js"></script>
-	<script src="/styleAdmin/vendors/datatables.net/jquery.dataTables.js"></script>
+	<!-- Plugin js} for this page -->
+	<script th:src="@{/styleAdmin/vendors/chart.js/Chart.min.js}"></script>
+	<script th:src="@{/styleAdmin/vendors/datatables.net/jquery.dataTables.js}"></script>
 	<script
-		src="/styleAdmin/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-	<script src="/styleAdmin/js/dataTables.select.min.js"></script>
+		th:src="@{/styleAdmin/vendors/datatables.net-bs4/dataTables.bootstrap4.js}"></script>
+	<script th:src="@{/styleAdmin/js/dataTables.select.min.js}"></script>
 
-	<!-- End plugin js for this page -->
-	<!-- inject:js -->
-	<script src="/styleAdmin/js/off-canvas.js"></script>
-	<script src="/styleAdmin/js/hoverable-collapse.js"></script>
-	<script src="/styleAdmin/js/template.js"></script>
-	<script src="/styleAdmin/js/settings.js"></script>
-	<script src="/styleAdmin/js/todolist.js"></script>
+	<!-- End plugin js} for this page -->
+	<!-- inject:js} -->
+	<script th:src="@{/styleAdmin/js/off-canvas.js}"></script>
+	<script th:src="@{/styleAdmin/js/hoverable-collapse.js}"></script>
+	<script th:src="@{/styleAdmin/js/template.js}"></script>
+	<script th:src="@{/styleAdmin/js/settings.js}"></script>
+	<script th:src="@{/styleAdmin/js/todolist.js}"></script>
 	<!-- endinject -->
-	<!-- Custom js for this page-->
-	<script src="/styleAdmin/js/dashboard.js"></script>
-	<script src="/styleAdmin/js/Chart.roundedBarCharts.js"></script>
-	<!-- End custom js for this page-->
+	<!-- Custom js} for this page-->
+	<script th:src="@{/styleAdmin/js/dashboard.js}"></script>
+	<script th:src="@{/styleAdmin/js/Chart.roundedBarCharts.js}"></script>
+	<!-- End custom js} for this page-->
+	
+		<!-- User-defined Scripts -->
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+	<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js}"></script>
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js}"></script>
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js}"></script>
+	<script th:src="@{/angular/admin-app.js}"></script>
+	<script th:src="@{/angular/product-ctrl.js}"></script>
+	<script th:src="@{/angular/authority-ctrl.js}"></script>
+
 
 </body>
 </html>

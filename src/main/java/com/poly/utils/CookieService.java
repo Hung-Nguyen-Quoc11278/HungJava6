@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CookieService {
+	
 	@Autowired
 	HttpServletRequest request;
 	@Autowired
 	HttpServletResponse response;
 
-	// public Cookie get(String name) {…}
-
-	// public String getValue(String name) {…}
+//	public Cookie get(String name) {…}
+//
+//	public String getValue(String name) {…}
 
 	public Cookie add(String name, String value, int hours) {
 		Cookie cookie = new Cookie(name, value);

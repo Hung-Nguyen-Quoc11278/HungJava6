@@ -16,15 +16,14 @@
 									<div class="dropdown">
 										<a class="btn dropdown-toggle" href="#" type="button"
 											id="dropdownMenu1" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="true"> LANGUAGES
-											&ensp; <img src="../styleUser/img/flag/flag.png" alt="icon">
-											<span class="caret"></span>
-										</a>
+											aria-haspopup="true" aria-expanded="true" th:text="#{header.languages}">																													
+										</a><span><img style="width: 15px;" th:src="@{/styleUser/img/flag/flag.png}" alt="icon"></span>&ensp;
+										
 										<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-											<li><a href="#">Việt Nam &ensp; <img
-													src="../styleUser/img/flag/vietnam.png" alt=""></a></li>
-											<li><a href="#">English &ensp; <img
-													src="../styleUser/img/flag/english.png" alt=""></a></li>
+											<li><a href="?lang=vi">Việt Nam &ensp; <img
+													th:src="@{/styleUser/img/flag/vietnam.png}" alt=""></a></li>
+											<li><a href="?lang=en">English &ensp; <img
+													th:src="@{/styleUser/img/flag/english.png}" alt=""></a></li>
 										</ul>
 									</div>
 								</div>
@@ -47,16 +46,18 @@
 							<div class="aa-header-top-right">
 								<ul class="aa-head-top-nav-right">
 									<th:block th:if="${#request.remoteUser}">
-										<li th:if="${#request.remoteUser}"> <strong><a href="account.html">Wellcome [[${#request.remoteUser}]]</a>	</strong>								
+										<li th:if="${#request.remoteUser}"> <strong><a href="account.html">[[#{header.wellcome}]] {{$auth.user.fullname}}</a></strong>								
 										</li>									
-										<li><a href="#"><strong>Administrator</strong></a></li>			
-										<li><a th:href="@{/home/changepassword}">Change Password</a></li>						
-										<li><a th:href="@{/security/logoff}" style="color: red">Logout</a></li>
+										<li th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAF')}">
+										<a th:href="@{/admin/index}"><strong>Administrator</strong></a>
+										</li>			
+										<li><strong><a th:href="@{/home/changepassword}">[[#{header.changepassword}]]</a></strong></li>						
+										<li><a th:href="@{/security/logoff}" style="color: red" th:text="#{header.logout}">Logout</a></li>
 										
 									</th:block>
 									<th:block th:unless="${#request.remoteUser}">
-										<li><a th:href="@{/home/register}">Register</a></li>
-										<li><a th:href="@{/security/login/form}">Login</a></li>
+										<li><strong><a th:href="@{/home/register}" th:text="#{header.register}">Register</a></strong></li>
+										<li><strong><a th:href="@{/security/login/form}" th:text="#{header.login}">Login</a></strong></li>
 									</th:block>
 
 								</ul>
@@ -80,7 +81,7 @@
 								<a th:href="@{/home/index}"> <span
 									class="fa fa-shopping-cart"></span>
 									<p>
-										daily<strong>Shop</strong> <span>Your Shopping Partner</span>
+										daily<strong>Shop</strong> <span>[[#{header.logo}]]</span>
 									</p>
 								</a>
 								<!-- img based logo -->
@@ -91,7 +92,7 @@
 							<div class="aa-cartbox">
 								<a class="aa-cart-link" th:href="@{/home/cart}"> <span
 									class="fa fa-shopping-basket"></span> <span
-									class="aa-cart-title">SHOPPING CART</span> <span
+									class="aa-cart-title" th:text="#{header.shoppingcart}">SHOPPING CART</span> <span
 									class="aa-cart-notify">{{cart.count}}</span>
 								</a>
 								<div class="aa-cartbox-summary">
@@ -115,7 +116,9 @@
 											class="aa-cartbox-total-price"> $ {{cart.amount | number : 2}} </span></li>
 									</ul>
 									<a class="aa-cartbox-checkout aa-primary-btn"
-										th:href="@{/user/checkout}">Checkout</a>
+										th:href="@{/order/checkout}" th:text="#{header.shoppingcartcheckout}"><strong>Checkout</strong></a>
+										<a class="aa-cartbox-checkout aa-primary-btn"
+										th:href="@{/order/list}" th:text="#{header.myorder}">My Order</a>
 								</div>
 							</div>
 							<!-- / cart box -->
@@ -156,23 +159,16 @@
 						<!-- Left nav -->
 						<ul class="nav navbar-nav">
 							<li><a th:href="@{/home/index}">Home</a></li>
-							<li><a th:href="@{|/product/list?cid=1000|}">Men <span ></span></a>								
-							<li><a th:href="@{|/product/list?cid=1001|}">Women <span ></span></a>	
-							<li><a th:href="@{|/product/list?cid=1002|}">Kid <span ></span></a>					
-							<li><a th:href="@{/product/list}">Products</a></li>
-							<li><a th:href="@{/home/contact}">Contact</a></li>
-							<li><a href="#">Blog <span class="caret"></span></a>
+							<li><a th:href="@{|/product/list?cid=1000|}" th:text="#{menu.men}">Men <span ></span></a>								
+							<li><a th:href="@{|/product/list?cid=1001|}" th:text="#{menu.women}">Women <span ></span></a>	
+							<li><a th:href="@{|/product/list?cid=1002|}" th:text="#{menu.kid}">Kid <span ></span></a>					
+							<li><a th:href="@{/product/list}" th:text="#{menu.products}">Products</a></li>
+							<li><a th:href="@{/home/contact}" th:text="#{menu.contact}">Contact</a></li>
+							<li><a href="" th:text="#{menu.pages}">Pages <span class="caret"></span></a>
 								<ul class="dropdown-menu">
-									<li><a th:href="@{/home/blog1}">Blog Single</a></li>
-									<li><a th:href="@{/home/blog2}">Blog Style</a></li>
-									
-								</ul>
-								</li>
-							<li><a href="">Pages <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a th:href="@{/home/cart}">Cart</a></li>
-									<li><a th:href="@{/order/checkout}">Checkout</a></li>
-									<li><a th:href="@{/home/404}">404 Page</a></li>
+									<li><a th:href="@{/home/cart}" th:text="#{menu.pages.cart}">Cart</a></li>
+									<li><a th:href="@{/order/checkout}" th:text="#{menu.pages.checkout}">Checkout</a></li>
+									<li><a th:href="@{/order/list}" th:text="#{header.myorder}">My Order</a></li>
 								</ul></li>
 						</ul>
 					</div>

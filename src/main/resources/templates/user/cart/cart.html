@@ -3,7 +3,7 @@
 	th:replace="~{/user/layout :: areas(~{::title},~{::body})}">
 <head>
 
-<title>Daily Shop | Cart Page</title>
+<title>Daily Shop | [[#{title.cartpages}]]</title>
 
 </head>
 <body>
@@ -61,10 +61,7 @@
 												<td colspan="6" class="aa-cart-view-bottom">										
 													<div class="aa-cart-coupon">												
 														<input ng-model="item.code" value="0" class="aa-coupon-code" type="text"
-															placeholder="Coupon"> 
-															<input
-															class="aa-cart-view-btn" type="submit"
-															value="Apply Coupon">
+															placeholder="Shipping : $20"> 
 													</div>
 													 <button ng-click="cart.clear()" class="aa-cart-view-btn">Clear</button>
 												</td>
@@ -85,7 +82,7 @@
 										</tr>
 										<tr>
 											<th>Total</th>
-											<td></td>
+											<td>$ {{cart.amount + 20 | number : 2}}</td>
 										</tr>
 									</tbody>
 								</table>

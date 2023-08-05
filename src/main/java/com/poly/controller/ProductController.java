@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,14 +31,42 @@ public class ProductController {
 	SessionService session;
 
 	@RequestMapping("/product/list")
-	public String list(Model model, @RequestParam("cid") Optional<String> cid) {
+	public String list(Model model,
+					@RequestParam("cid") Optional<String> cid,
+					@RequestParam("keywords") Optional<String> kw,
+					@RequestParam("p") Optional<Integer> p,
+					@RequestParam("field") Optional<String> field) {
+		
+		List<Product> list4 = productService.findBySellPro();
+		model.addAttribute("list4", list4);
+		
 		if (cid.isPresent()) {
 			List<Product> list = productService.findByCategoryId(cid.get());
-			model.addAttribute("items", list);
+			model.addAttribute("page", list);
 		} else {
-			List<Product> list = productService.findAll();
-			model.addAttribute("items", list);
+			String keywords = kw.orElse(session.get("keywords", ""));
+			session.set("keywords", keywords);
+			Pageable pageable = PageRequest.of(p.orElse(0),9);
+			Page<Product> page = dao.findAllByNameLike("%"+keywords+"%", pageable);
+			model.addAttribute("page", page);
 		}
+				
+		return "user/product/product";
+	}
+	
+	@RequestMapping("/product/list/sort")
+	public String list2(Model model,
+				@RequestParam("keywords") Optional<String> kw,
+				@RequestParam("p") Optional<Integer> p,
+				@RequestParam("field") String field) {
+		
+		List<Product> list4 = productService.findBySellPro();
+		model.addAttribute("list4", list4);
+		
+			Pageable pageable = PageRequest.of(p.orElse(0),9);
+			Page<Product> page = dao.findByField(field, pageable);
+			model.addAttribute("page", page);
+				
 		return "user/product/product";
 	}
 
@@ -44,6 +75,11 @@ public class ProductController {
 		Product item = productService.findById(id);
 		model.addAttribute("item", item);
 		return "user/product/product-detail";
+	}
+	
+	@RequestMapping("/admin/product")
+	public String pro(Model model) {
+		return "admin/ADproduct";
 	}
 
 }

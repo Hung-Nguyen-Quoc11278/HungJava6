@@ -3,7 +3,7 @@
 	th:replace="~{/user/layout :: areas(~{::title},~{::body})}">
 <head>
 
-<title>Daily Shop | Order Detail</title>
+<title>Daily Shop | [[#{title.orderdetail}]]</title>
 
 </head>
 <body>
@@ -91,7 +91,7 @@
 										<tbody>
 											<tr th:each="detail: *{orderDetails}" th:object="${detail}">
 												<td>[[*{product.id}]]</td>
-												<td><a class="aa-cart-title" href="#">[[*{product.name}]]</a></td>
+												<td><a class="aa-cart-title" >[[*{product.name}]]</a></td>
 												<td>$ [[*{#numbers.formatDecimal(price, 0, 'COMMA', 2, 'POINT')}]]</td>
 												<td>[[*{quantity}]]</td>
 												<td>$[[*{#numbers.formatDecimal(price*quantity, 0, 'COMMA', 2, 'POINT')}]]</td>

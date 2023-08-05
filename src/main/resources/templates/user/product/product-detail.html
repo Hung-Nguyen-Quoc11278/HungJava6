@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{/user/layout :: areas(~{::title},~{::body})}">
 <head>
-<title>Daily Shop | Product Detail</title>
+<title>Daily Shop | [[#{title.productdetail}]]</title>
 
 </head>
 <body>
@@ -86,21 +86,9 @@
 												class="aa-color-black"></a> <a href="#"
 												class="aa-color-white"></a>
 										</div>
-										<div class="aa-prod-quantity">
-											<form action="">
-												<select id="" name="">
-													<option selected="1" value="0">1</option>
-													<option value="1">2</option>
-													<option value="2">3</option>
-													<option value="3">4</option>
-													<option value="4">5</option>
-													<option value="5">6</option>
-												</select>
-											</form>											
-										</div>
 										<div class="aa-prod-view-bottom">
-											<a class="aa-add-to-cart-btn" href="#">Add To Cart</a> <a
-												class="aa-add-to-cart-btn" href="#">Buy Now</a>
+											<a class="aa-add-to-cart-btn" href="#" th:attr="ng-click=@{|cart.add(${item.id})|}">Add To Cart</a> <a
+												class="aa-add-to-cart-btn" th:attr="ng-click=@{|cart.add(${item.id})|}" th:href="@{/home/cart}">Buy Now</a>
 										</div>
 									</div>
 								</div>
@@ -300,7 +288,7 @@
 														<div class="aa-prod-quantity">
 															<form action="">
 																<select name="" id="">
-																	<option value="0" selected="1">1</option>
+																	<option value="0">1</option>
 																	<option value="1">2</option>
 																	<option value="2">3</option>
 																	<option value="3">4</option>

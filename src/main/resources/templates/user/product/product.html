@@ -36,11 +36,22 @@
 					<div class="aa-product-catg-content">
 						<div class="aa-product-catg-head">
 							<div class="aa-product-catg-head-left">
-								&emsp; <label> <strong>Sort By</strong> </label>&emsp; 
-								<a href="#" class="btn btn-primary">Phổ Biến</a>&emsp; 							
-								<a th:href="@{/product/list/sort?field=name}" class="btn btn-primary">Name</a>&emsp; 
-								<a th:href="@{/product/list/sort?field=price}" class="btn btn-primary">Price</a>&emsp; 
-								<a th:href="@{/product/list/sort?field=createDate}" class="btn btn-primary">Date</a>&emsp; 
+								&emsp; <label>
+								</label>&emsp; 
+								 <a th:href="@{|/product/list/sort/Name|}" class="btn btn-primary">Name</a>&emsp;
+									<a th:href="@{|/product/list/sort/CreateDate|}"
+									class="btn btn-primary">Date</a>&emsp;
+								<form action="/product/list/sort/Price" class="aa-sort-form" method="post">
+									<select name="price_gia">
+										<option value="null">Giá</option>
+										<option value="increase">Tăng &#8593;</option>
+										<option value="reduce">Giảm &#8595;</option>
+									</select>
+									<button
+									class="btn btn-primary">Price</button>&emsp;
+									
+								</form>
+								 
 							</div>
 							<div class="aa-product-catg-head-right">
 								<a id="grid-catg" href="#"><span class="fa fa-th"></span></a> <a
@@ -53,16 +64,19 @@
 								<li th:each="p: ${page}">
 									<figure>
 										<a class="aa-product-img"
-											th:href="@{|/product/detail/${p.id}|}">
-											<img th:src="@{|/styleUser/images/${p.image}|}" alt="polo shirt img"></a>
-										<a th:attr="ng-click=@{|cart.add(${p.id})|}" class="aa-add-card-btn" style="cursor: pointer;"><span
+											th:href="@{|/product/detail/${p.id}|}"> <img
+											th:src="@{|/styleUser/images/${p.image}|}"
+											alt="polo shirt img"></a>
+										<a th:attr="ng-click=@{|cart.add(${p.id})|}"
+											class="aa-add-card-btn" style="cursor: pointer;"><span
 											class="fa fa-shopping-cart"></span>Add To Cart</a>
 										<figcaption>
 											<h4 class="aa-product-title">
 												<a href="" th:utext="${p.name}"></a>
 											</h4>
 											<span class="aa-product-price">$[[${p.price}]]</span><span
-												class="aa-product-price"><del>$[[${p.price} + 10 ]]</del></span>
+												class="aa-product-price"><del>$[[${p.price} +
+													10 ]]</del></span>
 											<p class="aa-product-descrip">Lorem ipsum dolor sit amet,
 												consectetur adipisicing elit. Numquam accusamus facere
 												iusto, autem soluta amet sapiente ratione inventore nesciunt
@@ -70,13 +84,13 @@
 										</figcaption>
 									</figure>
 									<div class="aa-product-hvr-content">
-										<a th:href="@{|/product/detail/${p.id}|}" data-toggle2="tooltip" data-placement="top"
-											title="View"
+										<a th:href="@{|/product/detail/${p.id}|}"
+											data-toggle2="tooltip" data-placement="top" title="View"
 											data-target="#quick-view-modal"><span
 											class="fa fa-search"></span></a>
-									</div> <!-- product badge --> 
-									<span class="aa-badge aa-sale" th:text="${p.available} ? 'Còn Hàng !' : 'Hết Hàng !'" ></span>
-									
+									</div> <!-- product badge --> <span class="aa-badge aa-sale"
+									th:text="${p.available} ? 'Còn Hàng !' : 'Hết Hàng !'"></span>
+
 								</li>
 
 							</ul>
@@ -88,11 +102,11 @@
 									<li><a href="#" aria-label="Previous"> <span
 											aria-hidden="true">«</span>
 									</a></li>
-									<li><a th:href="@{/product/list?p=0}">1</a></li>
-									<li><a th:href="@{/product/list?p=1}">2</a></li>
-									<li><a th:href="@{/product/list?p=2}">3</a></li>
-									<li><a th:href="@{/product/list?p=3}">4</a></li>
-									<li><a th:href="@{/product/list?p=4}">5</a></li>
+									<li><a th:href="@{|/product/list/${sc}p=0|}">1</a></li>
+									<li><a th:href="@{|/product/list/${sc}p=1|}">2</a></li>
+									<li><a th:href="@{|/product/list/${sc}p=2|}">3</a></li>
+									<li><a th:href="@{|/product/list/${sc}p=3|}">4</a></li>
+									<li><a th:href="@{|/product/list/${sc}p=4|}">5</a></li>
 									<li><a href="#" aria-label="Next"> <span
 											aria-hidden="true">»</span>
 									</a></li>
@@ -107,7 +121,8 @@
 						<div class="aa-sidebar-widget">
 							<h3>Category</h3>
 							<ul class="aa-catg-nav">
-								<li th:each="c:${cates}"><a th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a></li>
+								<li th:each="c:${cates}"><a
+									th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a></li>
 							</ul>
 						</div>
 						<!-- single sidebar -->
@@ -124,12 +139,12 @@
 							<h3>Shop By Price</h3>
 							<!-- price range -->
 							<div class="aa-sidebar-price-range">
-								<form action="">
+								<form action="/product/list/sort/Price_min_max" method="post">
 									<div id="skipstep"
 										class="noUi-target noUi-ltr noUi-horizontal noUi-background">
 									</div>
-									<span id="skip-value-lower" class="example-val">30.00</span> <span
-										id="skip-value-upper" class="example-val">100.00</span>
+									<span id="skip-value-lower" class="example-val" name="min">30.00</span> <span
+										id="skip-value-upper" class="example-val" name="max">100.00</span>
 									<button class="aa-filter-btn" type="submit">Filter</button>
 								</form>
 							</div>
@@ -140,17 +155,17 @@
 							<h3>New Update</h3>
 							<div class="aa-recently-views">
 								<ul>
-									<li th:each="p: ${list4}">
-										<a href="#" class="aa-cartbox-img"><img alt="img" style="width: 80px; height: 100px;" th:src="@{|/styleUser/images/${p.image}|}"></a>
+									<li th:each="p: ${list4}"><a href="#"
+										class="aa-cartbox-img"><img alt="img"
+											style="width: 80px; height: 100px;"
+											th:src="@{|/styleUser/images/${p.image}|}"></a>
 										<div class="aa-cartbox-info">
 											<h4>
 												<a href="#" th:utext="${p.name}"></a>
 											</h4>
 											<p>$ [[${p.price}]]</p>
 											<hr>
-										</div>
-										
-									</li>									
+										</div></li>
 								</ul>
 							</div>
 						</div>

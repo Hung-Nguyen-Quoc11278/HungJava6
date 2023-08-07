@@ -27,10 +27,7 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findById(id).get();
 	}
 
-	@Override
-	public List<Product> findByCategoryId(String cid) {
-		return productDAO.findByCategoryId(cid);
-	}
+
 
 	@Override
 	public List<Product> findByPrice() {
@@ -57,10 +54,7 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findAllByNameLike(keywords, pageable);
 	}
 
-	@Override
-	public Page<Product> findByField(String field, Pageable pageable) {
-		return productDAO.findByField(field, pageable);
-	}
+	
 
 	@Override
 	public Product create(Product product) {
@@ -76,6 +70,26 @@ public class ProductServiceImpl implements ProductService {
 	public void delete(Integer id) {
 		productDAO.deleteById(id);
 	}
-	
-	
+
+	@Override
+	public Page<Product> findByCategoryId(String cid, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return productDAO.findByCategoryId(cid, pageable);
+	}
+
+	@Override
+	public Page<Product> HsortByField(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return productDAO.HsortByField(pageable);
+	}
+
+	@Override
+	public Page<Product> DsortByField(String field,Pageable pageable) {
+		// TODO Auto-generated method stub
+		return productDAO.DsortByField(field, pageable);
+	}
+
+
+
+
 }
